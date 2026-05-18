@@ -1,14 +1,12 @@
 'use client'
 
-export const dynamic = 'force-dynamic'
+import { Suspense, useEffect, useMemo, useState } from 'react'
+import Link                                        from 'next/link'
+import { useRouter, useSearchParams }              from 'next/navigation'
+import toast                                       from 'react-hot-toast'
+import { authClient }                              from '@/lib/auth-client.js'
 
-import { useEffect, useMemo, useState }    from 'react'
-import Link                                 from 'next/link'
-import { useRouter, useSearchParams }       from 'next/navigation'
-import toast                                from 'react-hot-toast'
-import { authClient }                       from '@/lib/auth-client.js'
-
-export default function ResetPassword() {
+function ResetPasswordForm() {
   const router       = useRouter()
   const searchParams = useSearchParams()
   const token        = useMemo(() => searchParams.get('token'), [searchParams])
@@ -69,5 +67,13 @@ export default function ResetPassword() {
         <Link href="/login" className="font-medium text-brand-600 hover:text-brand-700">Back to login</Link>
       </p>
     </div>
+  )
+}
+
+export default function ResetPassword() {
+  return (
+    <Suspense>
+      <ResetPasswordForm />
+    </Suspense>
   )
 }

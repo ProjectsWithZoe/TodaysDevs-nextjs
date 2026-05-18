@@ -1,14 +1,12 @@
 'use client'
 
-export const dynamic = 'force-dynamic'
-
-import { useState, useEffect }        from 'react'
-import Link                            from 'next/link'
+import { Suspense, useState, useEffect }   from 'react'
+import Link                                from 'next/link'
 import { useParams, useRouter, useSearchParams } from 'next/navigation'
-import api                             from '@/api/client.js'
-import { useTitleEffect }              from '@/hooks/useTitleEffect.js'
+import api                                 from '@/api/client.js'
+import { useTitleEffect }                  from '@/hooks/useTitleEffect.js'
 
-export default function ProjectDetail() {
+function ProjectDetailContent() {
   const { id }       = useParams()
   const router       = useRouter()
   const searchParams = useSearchParams()
@@ -109,5 +107,13 @@ export default function ProjectDetail() {
         </aside>
       </div>
     </div>
+  )
+}
+
+export default function ProjectDetail() {
+  return (
+    <Suspense>
+      <ProjectDetailContent />
+    </Suspense>
   )
 }

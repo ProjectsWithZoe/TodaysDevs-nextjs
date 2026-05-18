@@ -1,13 +1,11 @@
 'use client'
 
-export const dynamic = 'force-dynamic'
+import { Suspense, useState }              from 'react'
+import Link                                from 'next/link'
+import { useRouter, useSearchParams }      from 'next/navigation'
+import { authClient }                      from '@/lib/auth-client.js'
 
-import { useState }                    from 'react'
-import Link                             from 'next/link'
-import { useRouter, useSearchParams }   from 'next/navigation'
-import { authClient }                   from '@/lib/auth-client.js'
-
-export default function Login() {
+function LoginForm() {
   const router       = useRouter()
   const searchParams = useSearchParams()
   const message      = searchParams.get('message')
@@ -72,5 +70,13 @@ export default function Login() {
         <Link href="/register" className="text-brand-600 hover:text-brand-700 font-medium">Register</Link>
       </p>
     </div>
+  )
+}
+
+export default function Login() {
+  return (
+    <Suspense>
+      <LoginForm />
+    </Suspense>
   )
 }

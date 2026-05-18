@@ -1,18 +1,16 @@
 'use client'
 
-export const dynamic = 'force-dynamic'
-
-import { useEffect, useRef, useCallback, useState } from 'react'
-import Link                                          from 'next/link'
-import { useRouter, useSearchParams }                from 'next/navigation'
-import api                                           from '@/api/client.js'
-import { useTitleEffect }                            from '@/hooks/useTitleEffect.js'
-import { QueueStatus }                               from '@/components/QueueStatus.jsx'
-import { CancelMatchmaking }                         from '@/components/CancelMatchmaking.jsx'
+import { Suspense, useEffect, useRef, useCallback, useState } from 'react'
+import Link                                                    from 'next/link'
+import { useRouter, useSearchParams }                          from 'next/navigation'
+import api                                                     from '@/api/client.js'
+import { useTitleEffect }                                      from '@/hooks/useTitleEffect.js'
+import { QueueStatus }                                         from '@/components/QueueStatus.jsx'
+import { CancelMatchmaking }                                   from '@/components/CancelMatchmaking.jsx'
 
 const POLL_INTERVAL = 3000
 
-export default function MatchmakingWait() {
+function MatchmakingWaitContent() {
   const router       = useRouter()
   const searchParams = useSearchParams()
   const projectId    = searchParams.get('project')
@@ -79,5 +77,13 @@ export default function MatchmakingWait() {
         <CancelMatchmaking onCancelled={handleCancelled} />
       </div>
     </div>
+  )
+}
+
+export default function MatchmakingWait() {
+  return (
+    <Suspense>
+      <MatchmakingWaitContent />
+    </Suspense>
   )
 }
