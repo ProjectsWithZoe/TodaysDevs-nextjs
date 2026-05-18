@@ -1,0 +1,21 @@
+{
+  "name": "dev-learning-platform",
+  "private": true,
+  "workspaces": [
+    "client"
+  ],
+  "dependencies": {
+    "react":     "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "overrides": {
+    "react":     "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "scripts": {
+    "dev": "npm run dev --workspace=client",
+    "build": "npm run build --workspace=client",
+    "migrate": "npm run migrate --workspace=client",
+    "seed": "npm run seed --workspace=client"
+  }
+}
